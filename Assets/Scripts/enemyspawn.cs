@@ -5,10 +5,10 @@ using UnityEngine;
 public class enemyspawn : MonoBehaviour
 {
     public GameObject enemy;
-    int xpos;
-    int zpos;
-    int waittime;
-    int enemycount;
+    public int xpos;
+    public int zpos;
+    public int waittime;
+    public int enemycount;
 
     void Start()
     {

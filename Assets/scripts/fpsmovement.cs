@@ -4,18 +4,24 @@ using UnityEngine;
 
 public class fpsmovement : MonoBehaviour
 {
-    public CharacterController controller;
+    [SerializeField] CharacterController controller;
 
-    public float speed = 12f;
-    public float gravity = -9.81f;
-    public float jumpHeight = 3f;
+    [SerializeField] float speed = 12f;
+    [SerializeField] float gravity = -9.81f;
+    [SerializeField] float jumpHeight = 3f;
 
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
+    [SerializeField] Transform groundCheck;
+    [SerializeField] float groundDistance = 0.4f;
+    [SerializeField] LayerMask groundMask;
 
     Vector3 velocity;
     bool isGrounded;
+
+    public AudioSource playerwalk;
+    private void Start()
+    {
+        playerwalk = GetComponent<AudioSource>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -37,9 +43,24 @@ public class fpsmovement : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)
+            || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            playerwalk.Play();
+        }
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)
+            || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            playerwalk.Stop();
+        }
+        //else
+        //{
+        //    playerwalk.Pause();
+        //}
 
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
     }
+  
 }

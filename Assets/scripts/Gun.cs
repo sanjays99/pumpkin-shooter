@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public float damage = 10f;
-    public float range = 100f;
-    public float fireRate = 15f;
-    public float impactForce = 30f;
+    [SerializeField] float damage = 10f;
+    [SerializeField] float range = 100f;
+    [SerializeField] float fireRate = 15f;
+    [SerializeField] float impactForce = 30f;
 
-    public Camera fpscamera;
-    public ParticleSystem muzzleflash;
-    public GameObject impactEffect;
+    [SerializeField] Camera fpscamera;
+    //[SerializeField] ParticleSystem muzzleflash;
+    //[SerializeField] GameObject impactEffect;
 
     private float nextTimeToFire = 0f;
 
@@ -34,7 +34,7 @@ public class Gun : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(fpscamera.transform.position, fpscamera.transform.forward, out hit, range))
         {
-            UnityEngine.Debug.Log(hit.transform.name);
+            //UnityEngine.Debug.Log(hit.transform.name);
             Target target = hit.transform.GetComponent<Target>();
             if (target != null)
             {

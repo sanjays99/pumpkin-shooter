@@ -8,6 +8,7 @@ public class ButtonManager : MonoBehaviour
     public void PlayButton()
     {
         SceneManager.LoadScene(1);
+        //GameManager.instance.fpsmovementScript.enabled = true;
     }
     public void CreditButton()
     {

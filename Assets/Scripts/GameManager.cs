@@ -9,9 +9,18 @@ public class GameManager : MonoBehaviour
     public static GameManager instance { get { return _instance; } }
     public  GameObject enemy;
     NavMeshAgent agent = null;
+
+    public GameObject gameoverpanel;
+    public GameObject secCamera;
+    public fpsmovement fpsmovementScript;
+    public GameObject Escapemenupanel;
+    //public GameObject exitemenupanel;
+
+
     private void Awake()
     {
-        if(_instance == null)
+        _instance = this;
+        /*if(_instance == null)
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
@@ -19,8 +28,9 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }
-        agent = GetComponent<NavMeshAgent>();
+        }*/
+        //agent = GetComponent<NavMeshAgent>();
+
 
     }
 
@@ -31,7 +41,7 @@ public class GameManager : MonoBehaviour
     public void SetDestForEnemy()
     {
         agent.SetDestination(enemy.transform.position);
-
+        //enemywalk.Play();
     }
 
 }

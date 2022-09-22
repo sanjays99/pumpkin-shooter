@@ -5,25 +5,22 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    public NavMeshAgent agent;
-
-    public Transform player;
-
-    public LayerMask whatIsGround, whatIsPlayer;
-
-    public float health;
+    [SerializeField] NavMeshAgent agent;
+    [SerializeField] Transform player;
+    [SerializeField] LayerMask whatIsGround, whatIsPlayer;
+    [SerializeField] float health;
 
     //Patroling
-    public Vector3 walkPoint;
+    [SerializeField] Vector3 walkPoint;
     bool walkPointSet;
-    public float walkPointRange;
-
-    
+    [SerializeField] float walkPointRange;
 
     //States
-    public float sightRange, attackRange;
-    public bool playerInSightRange;
+    [SerializeField] float sightRange, attackRange;
+    [SerializeField] bool playerInSightRange;
+    float maxdistance = 2f;
 
+    
     private void Awake()
     {
         player = GameObject.Find("First Person Controller").transform;
@@ -39,6 +36,7 @@ public class EnemyAI : MonoBehaviour
         if (playerInSightRange)
         {
             ChasePlayer();
+            
         }
     }
 
@@ -51,12 +49,22 @@ public class EnemyAI : MonoBehaviour
 
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
+        if (Physics.Raycast(walkPoint, -transform.up, maxdistance, whatIsGround))
             walkPointSet = true;
     }
 
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            Destroy(other.gameObject);
+            GameManager.instance.gameoverpanel.SetActive(true);
+            GameManager.instance.secCamera.SetActive(true);
+        }
+
     }
 }
